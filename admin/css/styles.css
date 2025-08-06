@@ -1,0 +1,14 @@
+.form-control.is-valid {
+  border-color: #28a745 !important;
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545 !important;
+}
+.profile-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  /* margin-bottom: 15px; */
+}

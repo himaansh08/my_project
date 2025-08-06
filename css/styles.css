@@ -1,0 +1,130 @@
+.ajax-loader-container {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: #ffffff82;
+}
+.ajax-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 100px;
+}
+.containerr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.cardd {
+  width: 500px;
+  height: 600px;
+  margin: auto;
+  padding: 0 2rem;
+  border-radius: 1rem;
+  /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+  background-color: white;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  border-radius: 2rem;
+  padding: 0.5rem 2rem;
+  font-size: 1rem;
+}
+
+.text-primary {
+  color: #007bff !important;
+}
+
+.text-primary:hover {
+  text-decoration: underline;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.text-center {
+  margin-top: 1rem;
+}
+.error-message {
+  color: #dc3545; /* Bootstrap danger red */
+  font-size: 0.875rem; /* Slightly smaller font */
+  margin-top: 0.25rem;
+  display: block;
+}
+
+.profile-container {
+  min-height: 75vh;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  /* border-color: #04537d; */
+}
+
+.profile-button {
+  /* background: #04537d; */
+  box-shadow: none;
+  border: none;
+}
+
+.profile-button:focus {
+  background: #04537d;
+  box-shadow: none;
+}
+
+.form-label {
+  font-size: 0.875rem;
+}
+
+.error {
+  border-color: #dc3545 !important;
+}
+
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.password-strength {
+  height: 5px;
+  margin-top: 5px;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+.strength-weak {
+  background-color: #dc3545;
+}
+.strength-medium {
+  background-color: #ffc107;
+}
+.strength-strong {
+  background-color: #28a745;
+}
+
+.change-password-container {
+  min-height: 73vh;
+}
