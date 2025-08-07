@@ -202,13 +202,6 @@ if (!isset($_SESSION['admin_id'])) {
                 Customers
               </a>
             </li>
-            <li class="nav-item">
-  <a class="nav-link d-flex align-items-center gap-2" href="dashboard.php">
-    <svg class="bi"><use xlink:href="#speedometer2"/></svg>
-    Dashboard
-  </a>
-</li>
-
             <!-- <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#graph-up"/></svg>

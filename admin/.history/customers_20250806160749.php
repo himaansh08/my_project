@@ -113,9 +113,7 @@ function getSortIcon($column, $current_sort, $current_order) {
                             <td><?php echo htmlspecialchars($row['last_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['email']); ?></td>
                              <td>
-                                    <a href="delete_customer.php?id=<?php echo $row['id']; ?>" 
-                                       onclick="return confirm('Delete this user: <?php echo addslashes($row['first_name'] . ' ' . $row['last_name']); ?>?')">
-
+                                    <a href="delete_customer.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Delete this?')">
                                         <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                                     </a>
                                

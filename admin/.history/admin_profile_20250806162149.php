@@ -35,25 +35,9 @@ $stmt->close();
         <div class="d-flex p-2 bd-highlight gap-3">
             <div class="w-50 align-middle p-3">
                 <div class="d-flex gap-4 justify-content-between align-items-center ">
-                    <!-- Replace your image section with this -->
-<div class="text-center">
-    <?php 
-    // Determine the image source
-    $imageSrc = 'uploads/default.png'; // Default fallback
-    
-    if (!empty($adminData['profile_image'])) {
-        // Check if the custom image file exists
-        if (file_exists($adminData['profile_image'])) {
-            $imageSrc = $adminData['profile_image'];
-        }
-    }
-    ?>
-    
-    <img class="profile-image" 
-         src="<?php echo htmlspecialchars($imageSrc); ?>" 
-         alt="Profile Photo"
-         onerror="this.src='https://via.placeholder.com/120x120/6c757d/ffffff?text=<?php echo strtoupper(substr($adminData['first_name'] ?? 'A', 0, 1)); ?>';">
-</div>
+                    <div class="text-center">
+                        <img class="profile-image" src="<?php echo !empty($adminData['profile_image']) ? $adminData['profile_image'] : 'uploads/default.png'; ?>" alt="Profile Photo">
+                    </div>
                     <h4 class="text-center">Admin Profile</h4>
                 </div>
                 <form class="p-3" id="profileForm" enctype="multipart/form-data">

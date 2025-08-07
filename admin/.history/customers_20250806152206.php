@@ -44,7 +44,7 @@ if ($result === false) {
 }
 
 // Function to generate sort URL
-function getSortUrl($column, $current_sort, $current_order, $current_page): string {
+function getSortUrl($column, $current_sort, $current_order, $current_page) {
     $new_order = ($current_sort === $column && $current_order === 'ASC') ? 'DESC' : 'ASC';
     return '?' . http_build_query([
         'sort' => $column,
@@ -74,62 +74,8 @@ function getSortIcon($column, $current_sort, $current_order) {
         </div>
         
         <div class="table-container">
-            <table class="table table-striped table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>
-                        
-                            <input type="checkbox" id="select-all">
-                        </th>
-                        <th>
-                            <a href="<?php echo getSortUrl('first_name', $sort_by, $order, $current_page); ?>" class="text-decoration-none text-dark">
-                                First Name <?php echo getSortIcon('first_name', $sort_by, $order); ?>
-                            </a>
-                        </th>
-                        <th>
-                            <a href="<?php echo getSortUrl('last_name', $sort_by, $order, $current_page); ?>" class="text-decoration-none text-dark">
-                                Last Name <?php echo getSortIcon('last_name', $sort_by, $order); ?>
-                            </a>
-                        </th>
-                        <th>
-                            <a href="<?php echo getSortUrl('email', $sort_by, $order, $current_page); ?>" class="text-decoration-none text-dark">
-                                Email <?php echo getSortIcon('email', $sort_by, $order); ?>
-                            </a>
-                        </th>
-                        <th>
-                        
-                            Action
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if ($result->num_rows > 0): ?>
-                        <?php while ($row = $result->fetch_assoc()): ?>
-                        <tr>
-                            <td>
-                    <input type="checkbox" class="row-checkbox" name="selected_users[]" value="<?php echo $row['id']; ?>">
-                </td>
-                            <td><?php echo htmlspecialchars($row['first_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['last_name']); ?></td>
-                            <td><?php echo htmlspecialchars($row['email']); ?></td>
-                             <td>
-                                    <a href="delete_customer.php?id=<?php echo $row['id']; ?>" 
-                                       onclick="return confirm('Delete this user: <?php echo addslashes($row['first_name'] . ' ' . $row['last_name']); ?>?')">
+            
 
-                                        <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-                                    </a>
-                               
-
-                            </td>
-                        </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="3" class="text-center">No customers found.</td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
         </div>
 
         <!-- Pagination -->
@@ -166,15 +112,13 @@ function getSortIcon($column, $current_sort, $current_order) {
         <!-- Page info -->
         
     </div>
+
     <script>
-        document.getElementById('select-all').addEventListener('change', function () {
-            let checkboxes = document.querySelectorAll('.row-checkbox');
-            checkboxes.forEach(cb => cb.checked = this.checked);
-        });
-
-        
-    </script>
-
+document.getElementById('select-all').addEventListener('change', function () {
+    let checkboxes = document.querySelectorAll('.row-checkbox');
+    checkboxes.forEach(cb => cb.checked = this.checked);
+});
+</script>
 
 <?php
 include_once(__DIR__ . '/footer.php');

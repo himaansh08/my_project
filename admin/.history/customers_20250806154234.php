@@ -44,7 +44,7 @@ if ($result === false) {
 }
 
 // Function to generate sort URL
-function getSortUrl($column, $current_sort, $current_order, $current_page): string {
+function getSortUrl($column, $current_sort, $current_order, $current_page) {
     $new_order = ($current_sort === $column && $current_order === 'ASC') ? 'DESC' : 'ASC';
     return '?' . http_build_query([
         'sort' => $column,
@@ -78,7 +78,7 @@ function getSortIcon($column, $current_sort, $current_order) {
                 <thead>
                     <tr>
                         <th>
-                        
+                            <!-- Select All Checkbox -->
                             <input type="checkbox" id="select-all">
                         </th>
                         <th>
@@ -96,10 +96,6 @@ function getSortIcon($column, $current_sort, $current_order) {
                                 Email <?php echo getSortIcon('email', $sort_by, $order); ?>
                             </a>
                         </th>
-                        <th>
-                        
-                            Action
-                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -112,15 +108,6 @@ function getSortIcon($column, $current_sort, $current_order) {
                             <td><?php echo htmlspecialchars($row['first_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['last_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['email']); ?></td>
-                             <td>
-                                    <a href="delete_customer.php?id=<?php echo $row['id']; ?>" 
-                                       onclick="return confirm('Delete this user: <?php echo addslashes($row['first_name'] . ' ' . $row['last_name']); ?>?')">
-
-                                        <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-                                    </a>
-                               
-
-                            </td>
                         </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
@@ -167,13 +154,11 @@ function getSortIcon($column, $current_sort, $current_order) {
         
     </div>
     <script>
-        document.getElementById('select-all').addEventListener('change', function () {
-            let checkboxes = document.querySelectorAll('.row-checkbox');
-            checkboxes.forEach(cb => cb.checked = this.checked);
-        });
-
-        
-    </script>
+document.getElementById('select-all').addEventListener('change', function () {
+    let checkboxes = document.querySelectorAll('.row-checkbox');
+    checkboxes.forEach(cb => cb.checked = this.checked);
+});
+</script>
 
 
 <?php

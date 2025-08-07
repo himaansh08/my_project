@@ -44,7 +44,7 @@ if ($result === false) {
 }
 
 // Function to generate sort URL
-function getSortUrl($column, $current_sort, $current_order, $current_page): string {
+function getSortUrl($column, $current_sort, $current_order, $current_page) {
     $new_order = ($current_sort === $column && $current_order === 'ASC') ? 'DESC' : 'ASC';
     return '?' . http_build_query([
         'sort' => $column,
@@ -113,14 +113,11 @@ function getSortIcon($column, $current_sort, $current_order) {
                             <td><?php echo htmlspecialchars($row['last_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['email']); ?></td>
                              <td>
-                                    <a href="delete_customer.php?id=<?php echo $row['id']; ?>" 
-                                       onclick="return confirm('Delete this user: <?php echo addslashes($row['first_name'] . ' ' . $row['last_name']); ?>?')">
-
-                                        <i class="fa fa-trash text-danger" aria-hidden="true"></i>
-                                    </a>
-                               
-
-                            </td>
+                <!-- Delete icon -->
+                <a href="delete.php?id=<?= $customer['id'] ?>" onclick="return confirm('Are you sure you want to delete this customer?');">
+                    <!-- <i class="fas fa-trash-alt text-danger"></i> -->
+                </a>
+            </td>
                         </tr>
                         <?php endwhile; ?>
                     <?php else: ?>
@@ -171,8 +168,6 @@ function getSortIcon($column, $current_sort, $current_order) {
             let checkboxes = document.querySelectorAll('.row-checkbox');
             checkboxes.forEach(cb => cb.checked = this.checked);
         });
-
-        
     </script>
 
 

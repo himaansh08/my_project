@@ -35,25 +35,9 @@ $stmt->close();
         <div class="d-flex p-2 bd-highlight gap-3">
             <div class="w-50 align-middle p-3">
                 <div class="d-flex gap-4 justify-content-between align-items-center ">
-                    <!-- Replace your image section with this -->
-<div class="text-center">
-    <?php 
-    // Determine the image source
-    $imageSrc = 'uploads/default.png'; // Default fallback
-    
-    if (!empty($adminData['profile_image'])) {
-        // Check if the custom image file exists
-        if (file_exists($adminData['profile_image'])) {
-            $imageSrc = $adminData['profile_image'];
-        }
-    }
-    ?>
-    
-    <img class="profile-image" 
-         src="<?php echo htmlspecialchars($imageSrc); ?>" 
-         alt="Profile Photo"
-         onerror="this.src='https://via.placeholder.com/120x120/6c757d/ffffff?text=<?php echo strtoupper(substr($adminData['first_name'] ?? 'A', 0, 1)); ?>';">
-</div>
+                    <div class="text-center">
+                        <img class="profile-image" src="<?php echo !empty($adminData['profile_image']) ? $adminData['profile_image'] : 'uploads/default.png'; ?>" alt="Profile Photo">
+                    </div>
                     <h4 class="text-center">Admin Profile</h4>
                 </div>
                 <form class="p-3" id="profileForm" enctype="multipart/form-data">
@@ -128,10 +112,7 @@ $stmt->close();
 </div>
 
 <script>
-
-$(document).ready(function() {
-    // Profile form submission handler
-    $('#profileForm').on('submit', function(event) {
+   $('#profileForm').on('submit', function(event) {
         event.preventDefault(); // Prevent the form from submitting via the browser
         var formData = new FormData(this);
         var isValid = true;
@@ -213,83 +194,81 @@ $(document).ready(function() {
                 }
             });
         }
-    });
+    
 
-    // Password form submission handler (moved outside of profile form handler)
-    $('#passwordForm').on('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting via the browser
-        var formData = $(this).serialize();
-        var isValid = true;
 
-        // Clear previous error messages
-        $('#currentPasswordErr').text('');
-        $('#newPasswordErr').text('');
-        $('#confirmNewPasswordErr').text('');
-        $('#passwordResponseMessage').html('');
+        $('#passwordForm').on('submit', function(event) {
+            event.preventDefault(); // Prevent the form from submitting via the browser
+            var formData = $(this).serialize();
+            var isValid = true;
 
-        var currentPassword = $('#currentPassword').val().trim();
-        var newPassword = $('#newPassword').val().trim();
-        var confirmNewPassword = $('#confirmNewPassword').val().trim();
+            // Clear previous error messages
+            $('#currentPasswordErr').text('');
+            $('#newPasswordErr').text('');
+            $('#confirmNewPasswordErr').text('');
+            $('#passwordResponseMessage').html('');
 
-        if (newPassword !== '' || confirmNewPassword !== '' || currentPassword !== '') {
-            if (currentPassword === '') {
-                $('#currentPasswordErr').text('Current Password is required');
-                isValid = false;
-            }
-            if (newPassword === '') {
-                $('#newPasswordErr').text('New Password is required');
-                isValid = false;
-            }
-            if (confirmNewPassword === '') {
-                $('#confirmNewPasswordErr').text('Confirm New Password is required');
-                isValid = false;
-            } else if (newPassword !== confirmNewPassword) {
-                $('#confirmNewPasswordErr').text('Passwords do not match');
-                isValid = false;
-            }
-        }
+            var currentPassword = $('#currentPassword').val().trim();
+            var newPassword = $('#newPassword').val().trim();
+            var confirmNewPassword = $('#confirmNewPassword').val().trim();
 
-        if (isValid) {
-            // Show loading message
-            $('#passwordResponseMessage').html('<div class="alert alert-info">Updating password...</div>');
-
-            $.ajax({
-                url: 'admin_profile_ajax.php',
-                type: 'POST',
-                data: formData,
-                dataType: 'json', // Expect JSON response
-                success: function(response) {
-                    console.log('Password Response:', response); // Debug log
-                    if (response.success) {
-                        $('#passwordResponseMessage').html('<div class="alert alert-success">' + response.message + ' Redirecting...</div>');
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2000);
-                    } else {
-                        $('#passwordResponseMessage').html('<div class="alert alert-danger">' + (response.error || 'An error occurred') + '</div>');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log('AJAX Error:', xhr.responseText); // Debug log
-                    $('#passwordResponseMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+            if (newPassword !== '' || confirmNewPassword !== '' || currentPassword !== '') {
+                if (currentPassword === '') {
+                    $('#currentPasswordErr').text('Current Password is required');
+                    isValid = false;
                 }
-            });
+                if (newPassword === '') {
+                    $('#newPasswordErr').text('New Password is required');
+                    isValid = false;
+                }
+                if (confirmNewPassword === '') {
+                    $('#confirmNewPasswordErr').text('Confirm New Password is required');
+                    isValid = false;
+                } else if (newPassword !== confirmNewPassword) {
+                    $('#confirmNewPasswordErr').text('Passwords do not match');
+                    isValid = false;
+                }
+            }
+
+            if (isValid) {
+                // Show loading message
+                $('#passwordResponseMessage').html('<div class="alert alert-info">Updating password...</div>');
+
+                $.ajax({
+                    url: 'admin_profile_ajax.php',
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json', // Expect JSON response
+                    success: function(response) {
+                        console.log('Password Response:', response); // Debug log
+                        if (response.success) {
+                            $('#passwordResponseMessage').html('<div class="alert alert-success">' + response.message + ' Redirecting...</div>');
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            $('#passwordResponseMessage').html('<div class="alert alert-danger">' + (response.error || 'An error occurred') + '</div>');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.log('AJAX Error:', xhr.responseText); // Debug log
+                        $('#passwordResponseMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+                    }
+                });
+            }
+        });
+
+        function validateEmail(email) {
+            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validatePhone(phone) {
+            var re = /^[0-9]{10}$/; // Assuming a 10-digit phone number format. Adjust the regex according to your requirements.
+            return re.test(phone);
         }
     });
-
-    // Utility functions
-    function validateEmail(email) {
-        var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
-
-    function validatePhone(phone) {
-        var re = /^[0-9]{10}$/; // Assuming a 10-digit phone number format. Adjust the regex according to your requirements.
-        return re.test(phone);
-    }
-});
 </script>
-
 <?php
 include_once(__DIR__ . '/footer.php');
 ?>
