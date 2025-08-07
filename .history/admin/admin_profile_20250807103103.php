@@ -1,5 +1,5 @@
 <?php
-include_once (__DIR__ . '/header.php');
+include_once(__DIR__ . '/header.php');
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -7,11 +7,11 @@ if (empty($_SESSION['csrf_token'])) {
 $csrf_token = $_SESSION['csrf_token'];
 
 // Fetch admin data from the database
-$userId = $_SESSION['admin_id'];  // Assuming you store the admin ID in session
+$userId = $_SESSION['admin_id']; // Assuming you store the admin ID in session
 $adminData = [];
 
 // Fetch admin details from the database
-$query = 'SELECT first_name, last_name, email, phone, homeaddress, profile_image FROM admin_info WHERE admin_id = ?';
+$query = "SELECT first_name, last_name, email, phone, homeaddress, profile_image FROM admin_info WHERE admin_id = ?";
 $stmt = $conn->prepare($query);
 $stmt->bind_param('i', $userId);
 $stmt->execute();
@@ -37,10 +37,10 @@ $stmt->close();
                 <div class="d-flex gap-4 justify-content-between align-items-center ">
                     <!-- Replace your image section with this -->
 <div class="text-center">
-    <?php
+    <?php 
     // Determine the image source
-    $imageSrc = 'uploads/default.png';  // Default fallback
-
+    $imageSrc = 'uploads/default.png'; // Default fallback
+    
     if (!empty($adminData['profile_image'])) {
         // Check if the custom image file exists
         if (file_exists($adminData['profile_image'])) {
@@ -269,6 +269,10 @@ $(document).ready(function() {
                         $('#passwordResponseMessage').html('<div class="alert alert-danger">' + (response.error || 'An error occurred') + '</div>');
                     }
                 },
+                error: function(xhr, status, error) {
+                    console.log('AJAX Error:', xhr.responseText); // Debug log
+                    $('#passwordResponseMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+                }
             });
         }
     });
@@ -287,5 +291,5 @@ $(document).ready(function() {
 </script>
 
 <?php
-include_once (__DIR__ . '/footer.php');
+include_once(__DIR__ . '/footer.php');
 ?>

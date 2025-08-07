@@ -116,14 +116,14 @@ $base_url = strtok($_SERVER["REQUEST_URI"], '?');
         <!-- Preserve current sorting parameters -->
         <input type="hidden" name="sort_by" value="<?php echo htmlspecialchars($sort_by); ?>">
         <input type="hidden" name="sort_order" value="<?php echo htmlspecialchars($sort_order); ?>">
-
+        
         <div class="d-flex justify-content-between align-items-center">
             <!-- Left side: search input + dropdown + search button -->
             <div class="d-flex align-items-center gap-2">
                 <div style="width: 250px;">
-                    <input type="search" name="search" class="form-control"
-                        placeholder="Search by name or email ..."
-                        value="<?php echo htmlspecialchars($search_term); ?>">
+                    <input type="search" name="search" class="form-control" 
+                           placeholder="Search by name or email ..." 
+                           value="<?php echo htmlspecialchars($search_term); ?>">
                 </div>
 
                 <div style="width: 180px;">
@@ -145,12 +145,12 @@ $base_url = strtok($_SERVER["REQUEST_URI"], '?');
                 <div>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </div>
-
+                
                 <?php if (!empty($search_term) || !empty($selected_skill)) { ?>
-                    <div>
-                        <a href="<?php echo $base_url; ?>?sort_by=<?php echo $sort_by; ?>&sort_order=<?php echo $sort_order; ?>"
-                            class="btn btn-secondary">Clear</a>
-                    </div>
+                <div>
+                    <a href="<?php echo $base_url; ?>?sort_by=<?php echo $sort_by; ?>&sort_order=<?php echo $sort_order; ?>" 
+                       class="btn btn-secondary">Clear</a>
+                </div>
                 <?php } ?>
             </div>
 
@@ -163,8 +163,8 @@ $base_url = strtok($_SERVER["REQUEST_URI"], '?');
 
     <?php if (!empty($search_term) || !empty($selected_skill)) { ?>
         <div class="alert alert-info">
-            <strong>Search Results:</strong>
-            <?php
+            <strong>Search Results:</strong> 
+            <?php 
             echo "Found $total_rows customer(s)";
             if (!empty($search_term)) {
                 echo " matching \"" . htmlspecialchars($search_term) . "\"";
@@ -246,7 +246,7 @@ $base_url = strtok($_SERVER["REQUEST_URI"], '?');
                 </tr>
             </thead>
             <tbody>
-                <?php
+                <?php 
                 if ($result && $result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) { ?>
                         <tr>
@@ -257,7 +257,7 @@ $base_url = strtok($_SERVER["REQUEST_URI"], '?');
                             <td><?php echo htmlspecialchars($row['last_name']); ?></td>
                             <td><?php echo htmlspecialchars($row['email']); ?></td>
                             <td>
-                                <?php
+                                <?php 
                                 if (!empty($row['user_skills'])) {
                                     $skills_array = explode(', ', $row['user_skills']);
                                     foreach ($skills_array as $skill) {
@@ -276,7 +276,7 @@ $base_url = strtok($_SERVER["REQUEST_URI"], '?');
                 } else { ?>
                     <tr>
                         <td colspan="6" class="text-center">
-                            <?php
+                            <?php 
                             if (!empty($search_term) || !empty($selected_skill)) {
                                 echo "No customers found matching your search criteria.";
                             } else {
@@ -292,45 +292,45 @@ $base_url = strtok($_SERVER["REQUEST_URI"], '?');
 
     <!-- Pagination controls -->
     <?php if ($total_pages > 1) { ?>
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-start">
-                <?php if ($page > 1) { ?>
-                    <li class="page-item">
-                        <?php
-                        $temp_get = $_GET;
-                        $temp_get['page'] = $temp_get['page'] - 1;
-                        ?>
-                        <a class="page-link" href="?<?php echo http_build_query($temp_get); ?>" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                    </li>
-                <?php } ?>
-
-                <?php for ($i = 1; $i <= $total_pages; $i++) { ?>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-start">
+            <?php if ($page > 1) { ?>
+                <li class="page-item">
                     <?php
                     $temp_get = $_GET;
-                    $temp_get['page'] = $i;
+                    $temp_get['page'] = $temp_get['page'] - 1;
                     ?>
-                    <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
-                        <a class="page-link" href="?<?php echo http_build_query($temp_get); ?>"><?php echo $i; ?></a>
-                    </li>
-                <?php } ?>
+                    <a class="page-link" href="?<?php echo http_build_query($temp_get); ?>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+            <?php } ?>
 
-                <?php if ($page < $total_pages) { ?>
-                    <?php
-                    $temp_get = $_GET;
-                    $temp_get['page'] = $page + 1;
-                    ?>
-                    <li class="page-item">
-                        <a class="page-link" href="?<?php echo http_build_query($temp_get); ?>" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </nav>
+            <?php for ($i = 1; $i <= $total_pages; $i++) { ?>
+                <?php
+                $temp_get = $_GET;
+                $temp_get['page'] = $i;
+                ?>
+                <li class="page-item <?php if ($i == $page) echo 'active'; ?>">
+                    <a class="page-link" href="?<?php echo http_build_query($temp_get); ?>"><?php echo $i; ?></a>
+                </li>
+            <?php } ?>
+
+            <?php if ($page < $total_pages) { ?>
+                <?php
+                $temp_get = $_GET;
+                $temp_get['page'] = $page + 1;
+                ?>
+                <li class="page-item">
+                    <a class="page-link" href="?<?php echo http_build_query($temp_get); ?>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            <?php } ?>
+        </ul>
+    </nav>
     <?php } ?>
 </div>
 
@@ -397,7 +397,7 @@ $base_url = strtok($_SERVER["REQUEST_URI"], '?');
                         first_name: $(this).data('user-first-name')
                     });
                 });
-
+                
 
                 $.ajax({
                     url: 'customer_ajax.php',
@@ -416,7 +416,7 @@ $base_url = strtok($_SERVER["REQUEST_URI"], '?');
                             $('#responseMessage').html('<div class="alert alert-danger">' + response.error + '</div>');
                         }
                     },
-
+                    
                 });
             }
         });

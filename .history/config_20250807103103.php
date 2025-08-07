@@ -19,11 +19,11 @@ if ($conn->connect_error) {
 
 
 define('SMTP_HOST', 'smtp.gmail.com');
-define('SMTP_USERNAME', 'himanshsood311@gmail.com');
-define('SMTP_PASSWORD', 'bwuc cqhj pzvz vejg'); // App password
+define('SMTP_USERNAME', 'your-email');
+define('SMTP_PASSWORD', 'your-app-password'); // App password
 define('SMTP_PORT', 587);
-define('SMTP_FROM_EMAIL', 'himanshsood311@gmail.com');
-define('SMTP_FROM_NAME', 'Oriental Outsourcing');
+define('SMTP_FROM_EMAIL', 'your-email');
+define('SMTP_FROM_NAME', 'your-company-name');
 define('SMTP_SECURE', PHPMailer::ENCRYPTION_STARTTLS);
 
 

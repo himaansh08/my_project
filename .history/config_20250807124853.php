@@ -20,7 +20,7 @@ if ($conn->connect_error) {
 
 define('SMTP_HOST', 'smtp.gmail.com');
 define('SMTP_USERNAME', 'himanshsood311@gmail.com');
-define('SMTP_PASSWORD', 'bwuc cqhj pzvz vejg'); // App password
+define('SMTP_PASSWORD', ''); // App password
 define('SMTP_PORT', 587);
 define('SMTP_FROM_EMAIL', 'himanshsood311@gmail.com');
 define('SMTP_FROM_NAME', 'Oriental Outsourcing');
