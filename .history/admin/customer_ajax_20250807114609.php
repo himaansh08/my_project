@@ -45,6 +45,33 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $response['success'] = false;
         }
         echo json_encode($response);
+
+    }
+
+    if(isset($_POST['action']) && $_POST['action'] == 'search_users)'){
+        $search=$_POST['query'];
+
+        if($search!==' '){
+            $stmt = $conn->prepare("SELECT * FROM users_info WHERE name LIKE ? OR email LIKE ?");
+    $stmt->bind_param("ss", $search, $search);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        echo "<table border='1' cellpadding='5'><tr><th>Name</th><th>Email</th></tr>";
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr><td>" . htmlspecialchars($row['name']) . "</td><td>" . htmlspecialchars($row['email']) . "</td></tr>";
+        }
+        echo "</table>";
+    } else {
+        echo "No results found.";
+    }
+
+    $stmt->close();
+        }
+
+
+
     }
 }
 ?>

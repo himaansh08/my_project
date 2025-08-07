@@ -269,6 +269,10 @@ $(document).ready(function() {
                         $('#passwordResponseMessage').html('<div class="alert alert-danger">' + (response.error || 'An error occurred') + '</div>');
                     }
                 },
+                error: function(xhr, status, error) {
+                    console.log('AJAX Error:', xhr.responseText); // Debug log
+                    $('#passwordResponseMessage').html('<div class="alert alert-danger">There was an error processing your request. Please try again later.</div>');
+                }
             });
         }
     });
